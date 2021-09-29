@@ -48,21 +48,25 @@ def print_grd(arr):
     print("-"*10)
     print("")
 
-
 def bomberMan(n, grid):
     r = len(grid)                                   # Rows
     c = len(grid[0])                                # Columns
     bomb_coord = grid[:]                            # Copying bombs into new grid
-    for sec in range(1,n+1):        
-        if sec % 3 == 1:            
+
+    if n == 1: 
+        return grid
+    # Since Pattern repeats every 4 turns after the first one
+    for sec in range(1,(n%4)+5):        
+        if sec == 1:            
+            pass                   
+        elif sec % 2 == 0:
             bomb_coord = grid[:]                    # Copying bombs into new grid
-        elif sec % 3 == 2:
             grid = ['O' * c for _ in range(r) ]     # Putting bombs in all space of grid
-        elif sec % 3 == 0:
+        elif sec % 2 == 1:
             for i in range(r):
                 for j in range(c):
                     
-                    if bomb_coord[i][j] == grid[i][j] and grid[i][j] == "O": # If Bomb
+                    if bomb_coord[i][j] == "O": # If Bomb
                         grid[i] = grid[i][:j] + '.' + grid[i][j+1:] 
                         if(j < c-1):
                             grid[i] = grid[i][:j+1] + '.' + grid[i][j+2:]  
@@ -75,7 +79,7 @@ def bomberMan(n, grid):
     return grid
 
 if __name__ == "__main__":
-    gridd =['.......', '...O...', '....O..','.......', 'OO.....', 'OO.....']
-    n = 3
+    gridd =['O..OO........O..O........OO.O.OO.OO...O.....OOO...OO.O..OOOOO...O.O..O..O.O..OOO..O..O..O....O...O....O...O..O..O....O.O.O.O.....O.....OOOO..O......O.O.....OOO....OO....OO....O.O...O..OO....OO..O...O']
+    n = 181054341
     
     print_grd(bomberMan(n, gridd))
